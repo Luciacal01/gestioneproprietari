@@ -5,5 +5,5 @@ import it.prova.gestioneproprietari.model.Proprietario;
 
 public interface ProprietarioDAO extends IBaseDAO<Proprietario> {
 
-	public int countProprietariwhitAutoImmatricolataDal(int annoImmatricolazione) throws Exception;
+	public Long countProprietariwhitAutoImmatricolataDal(int annoImmatricolazione) throws Exception;
 }

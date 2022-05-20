@@ -37,7 +37,8 @@ public class testProprietarioAutomobile {
 			// testModificaProprietario(proprietarioService);
 			// testModificaAutomobile(proprietarioService, automobileService);
 			// testRimuoviProprietario(proprietarioService);
-			testRimuoviAutomobile(proprietarioService, automobileService);
+			// testRimuoviAutomobile(proprietarioService, automobileService);
+			testContaQuantiProprietariPossiedonoAutoImmatricolataDal(proprietarioService);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		} finally {
@@ -144,6 +145,18 @@ public class testProprietarioAutomobile {
 			throw new RuntimeException("testRimozioneAutomobile FAILED");
 
 		System.out.println("...........testRimozioneAutomobile PASSED..........");
+	}
+
+	public static void testContaQuantiProprietariPossiedonoAutoImmatricolataDal(ProprietarioService proprietarioService)
+			throws Exception {
+		System.out.println("...........testContaQuantiProprietariPossiedonoAutoImmatricolataDal inizio.........");
+
+		Long contatore = proprietarioService.contaQuantiProprietariPossiedonoAutoImmatricolataDal(2010);
+
+		if (contatore != 1)
+			throw new RuntimeException("testContaQuantiProprietariPossiedonoAutoImmatricolataDal FAILED");
+
+		System.out.println("......testContaQuantiProprietariPossiedonoAutoImmatricolataDal Passed.................");
 	}
 
 }

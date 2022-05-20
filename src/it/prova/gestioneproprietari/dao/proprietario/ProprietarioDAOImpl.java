@@ -3,6 +3,8 @@ package it.prova.gestioneproprietari.dao.proprietario;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
+import javax.persistence.criteria.From;
 
 import it.prova.gestioneproprietari.model.Proprietario;
 
@@ -53,9 +55,11 @@ public class ProprietarioDAOImpl implements ProprietarioDAO {
 	}
 
 	@Override
-	public int countProprietariwhitAutoImmatricolataDal(int annoImmatricolazione) throws Exception {
-		// TODO Auto-generated method stub
-		return 0;
+	public Long countProprietariwhitAutoImmatricolataDal(int annoImmatricolazione) throws Exception {
+		TypedQuery<Long> query = entityManager.createQuery(
+				"select count(p) from Proprietario p join p.automobili a where a.annoImmatricolazione > ?1",
+				Long.class);
+		return query.setParameter(1, annoImmatricolazione).getSingleResult();
 	}
 
 }
