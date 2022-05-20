@@ -5,6 +5,8 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
+import javax.management.RuntimeErrorException;
+
 import it.prova.gestioneproprietari.dao.EntityManagerUtil;
 import it.prova.gestioneproprietari.model.Automobile;
 import it.prova.gestioneproprietari.model.Proprietario;
@@ -24,23 +26,22 @@ public class testProprietarioAutomobile {
 
 			System.out.println(
 					"in tabellaAutomobili ci sono " + automobileService.listAllAutomobili().size() + " elementi");
-			// testInserisciNuocoProprietario(proprietarioService);
-			// System.out.println(
-			// "in tabella Proprietari ci sono " +
-			// proprietarioService.listAllPropietari().size() + " elementi");
+			testInserisciNuocoProprietario(proprietarioService);
+			System.out.println(
+					"in tabella Proprietari ci sono " + proprietarioService.listAllPropietari().size() + " elementi");
 
-			// testInserisciNuovaAuto(proprietarioService, automobileService);
-			// System.out.println(
-			// "in tabellaAutomobili ci sono " +
-			// automobileService.listAllAutomobili().size() + " elementi");
+			testInserisciNuovaAuto(proprietarioService, automobileService);
+			System.out.println(
+					"in tabellaAutomobili ci sono " + automobileService.listAllAutomobili().size() + " elementi");
 
-			// testModificaProprietario(proprietarioService);
-			// testModificaAutomobile(proprietarioService, automobileService);
-			// testRimuoviProprietario(proprietarioService);
-			// testRimuoviAutomobile(proprietarioService, automobileService);
-			// testContaQuantiProprietariPossiedonoAutoImmatricolataDal(proprietarioService);
+			testModificaProprietario(proprietarioService);
+			testModificaAutomobile(proprietarioService, automobileService);
+			testRimuoviProprietario(proprietarioService);
+			testRimuoviAutomobile(proprietarioService, automobileService);
+			testContaQuantiProprietariPossiedonoAutoImmatricolataDal(proprietarioService);
 
 			testCercatTutteAutomobileConProprietarioIlCuiCodiceFiscaleContiene(automobileService);
+			testCercatTutteLeAutomobiliConErrori(automobileService);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		} finally {
@@ -180,6 +181,16 @@ public class testProprietarioAutomobile {
 		System.out
 				.println("........testCercatTutteAutomobileConProprietarioIlCuiCodiceFiscaleContiene PASSED.........");
 
+	}
+
+	public static void testCercatTutteLeAutomobiliConErrori(AutomobileService automobileService) throws Exception {
+		System.out.println("............testCercatTutteLeAutomobiliConErrori inizio...........");
+		List<Automobile> listeAutomobiliConErrori = automobileService.cercatTutteLeAutomobiliConErrori();
+
+		if (listeAutomobiliConErrori.isEmpty())
+			throw new RuntimeException(
+					"testCercatTutteLeAutomobiliConErrori FAILLED, non ci sono automobili con errori ");
+		System.out.println("...........testCercatTutteLeAutomobiliConErrori PASSED...........");
 	}
 
 }
