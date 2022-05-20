@@ -33,7 +33,8 @@ public class testProprietarioAutomobile {
 			// "in tabellaAutomobili ci sono " +
 			// automobileService.listAllAutomobili().size() + " elementi");
 
-			testModificaProprietario(proprietarioService);
+			// testModificaProprietario(proprietarioService);
+			testModificaAutomobile(proprietarioService, automobileService);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		} finally {
@@ -82,6 +83,24 @@ public class testProprietarioAutomobile {
 
 		proprietarioService.aggiorna(proprietarioDaModificare);
 		if (proprietarioDaModificare.getId() == null)
+			throw new RuntimeException("testModificaProprietario FAILED");
+
+		System.out.println("..........testModificaProprietario PASSED............");
+
+	}
+
+	public static void testModificaAutomobile(ProprietarioService proprietarioService,
+			AutomobileService automobileService) throws Exception {
+		System.out.println("..........testModificaAutomobile inizio........");
+		List<Proprietario> listaProprietari = proprietarioService.listAllPropietari();
+		if (listaProprietari.isEmpty())
+			throw new RuntimeException("test fallito, non ci sono proprietari");
+
+		Automobile automobileDaModificare = new Automobile("fiat", "500", "CH368DF", 2021);
+		automobileDaModificare.setProprietario(listaProprietari.get(0));
+		automobileDaModificare.setId(1L);
+		automobileService.aggiorna(automobileDaModificare);
+		if (automobileDaModificare.getId() == null)
 			throw new RuntimeException("testModificaProprietario FAILED");
 
 		System.out.println("..........testModificaProprietario PASSED............");
