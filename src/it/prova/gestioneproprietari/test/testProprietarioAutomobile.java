@@ -2,6 +2,7 @@ package it.prova.gestioneproprietari.test;
 
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import it.prova.gestioneproprietari.dao.EntityManagerUtil;
 import it.prova.gestioneproprietari.model.Automobile;
@@ -20,10 +21,15 @@ public class testProprietarioAutomobile {
 			System.out.println(
 					"in tabella Proprietari ci sono " + proprietarioService.listAllPropietari().size() + " elementi");
 
+			System.out.println(
+					"in tabellaAutomobili ci sono " + automobileService.listAllAutomobili().size() + " elementi");
 			testInserisciNuocoProprietario(proprietarioService);
 			System.out.println(
 					"in tabella Proprietari ci sono " + proprietarioService.listAllPropietari().size() + " elementi");
 
+			testInserisciNuovaAuto(proprietarioService, automobileService);
+			System.out.println(
+					"in tabellaAutomobili ci sono " + automobileService.listAllAutomobili().size() + " elementi");
 		} catch (Throwable e) {
 			e.printStackTrace();
 		} finally {
@@ -47,11 +53,15 @@ public class testProprietarioAutomobile {
 
 	}
 
-	public static void testInserisciNuovaAuto(ProprietarioService proprietarioService) {
+	public static void testInserisciNuovaAuto(ProprietarioService proprietarioService,
+			AutomobileService automobileService) throws Exception {
 		System.out.println("...........testInserisciNuovaAutomobile............ ");
 
-		Automobile nuovaAutomobile = new Automobile("Fiat", "500L", "CH368DF", 2007);
-		nuovaAutomobile.setProprietario(null);
+		List<Proprietario> listaProprietari = proprietarioService.listAllPropietari();
+		Automobile nuovaAutomobile = new Automobile("Volkswagen", "Tiguan", "GH609HK", 1998);
+		nuovaAutomobile.setProprietario(listaProprietari.get(1));
+
+		automobileService.inserisciNuova(nuovaAutomobile);
 
 		if (nuovaAutomobile.getId() == null)
 			throw new RuntimeException("testInserisciNuovaAuto fallito");
