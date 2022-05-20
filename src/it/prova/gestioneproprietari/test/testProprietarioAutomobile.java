@@ -38,7 +38,9 @@ public class testProprietarioAutomobile {
 			// testModificaAutomobile(proprietarioService, automobileService);
 			// testRimuoviProprietario(proprietarioService);
 			// testRimuoviAutomobile(proprietarioService, automobileService);
-			testContaQuantiProprietariPossiedonoAutoImmatricolataDal(proprietarioService);
+			// testContaQuantiProprietariPossiedonoAutoImmatricolataDal(proprietarioService);
+
+			testCercatTutteAutomobileConProprietarioIlCuiCodiceFiscaleContiene(automobileService);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		} finally {
@@ -157,6 +159,27 @@ public class testProprietarioAutomobile {
 			throw new RuntimeException("testContaQuantiProprietariPossiedonoAutoImmatricolataDal FAILED");
 
 		System.out.println("......testContaQuantiProprietariPossiedonoAutoImmatricolataDal Passed.................");
+	}
+
+	public static void testCercatTutteAutomobileConProprietarioIlCuiCodiceFiscaleContiene(
+			AutomobileService automobileService) throws Exception {
+		System.out.println(
+				"............testCercatTutteAutomobileConProprietarioIlCuiCodiceFiscaleContiene inizio............");
+
+		List<Automobile> listaAutomobili = automobileService
+				.cercatTutteAutomobileConProprietarioIlCuiCodiceFiscaleContiene("f");
+
+		for (Automobile automobileItem : listaAutomobili) {
+			System.out.println(automobileItem.getId());
+		}
+
+		if (listaAutomobili.isEmpty())
+			throw new RuntimeException(
+					"testtestCercatTutteAutomobileConProprietarioIlCuiCodiceFiscaleContiene FAILED, non ci sono proprietari di auto il cui codice fiscale contiene f");
+
+		System.out
+				.println("........testCercatTutteAutomobileConProprietarioIlCuiCodiceFiscaleContiene PASSED.........");
+
 	}
 
 }

@@ -1,8 +1,11 @@
 package it.prova.gestioneproprietari.dao.automobile;
 
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.persistence.EntityManager;
+import javax.persistence.TypedQuery;
 
 import it.prova.gestioneproprietari.model.Automobile;
 
@@ -55,14 +58,20 @@ public class AutomobileDAOImpl implements AutomobileDAO {
 
 	@Override
 	public List<Automobile> findAllByCodiceFiscaleContiene(String StringaDaVerificare) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		TypedQuery<Automobile> query = entityManager.createQuery(
+				"select a from Automobile a join a.proprietario p where p.codiceFiscale like ?1", Automobile.class);
+		return query.setParameter(1, "%" + StringaDaVerificare + "%").getResultList();
 	}
 
 	@Override
 	public List<Automobile> findAllByAutomobiliConErrore() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		Calendar c = Calendar.getInstance();
+		c.add(Calendar.YEAR, -18);
+		Date date = c.getTime();
+
+		TypedQuery<Automobile> query = entityManager.createQuery(
+				"Select a from Automobile a join a.proprietario p where p.dataNascita >= ?1", Automobile.class);
+		return query.setParameter(1, date).getResultList();
 	}
 
 }

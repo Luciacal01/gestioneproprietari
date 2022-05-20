@@ -110,14 +110,30 @@ public class AutomobileServiceImpl implements AutomobileService {
 	@Override
 	public List<Automobile> cercatTutteAutomobileConProprietarioIlCuiCodiceFiscaleContiene(String stringaDaConfrontare)
 			throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+		try {
+			automobileDAO.setEntityManager(entityManager);
+			return automobileDAO.findAllByCodiceFiscaleContiene(stringaDaConfrontare);
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override
 	public List<Automobile> cercatTutteLeAutomobiliConErrori() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+		try {
+			automobileDAO.setEntityManager(entityManager);
+			return automobileDAO.findAllByAutomobiliConErrore();
+		} catch (Exception e) {
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
 	}
 
 }
