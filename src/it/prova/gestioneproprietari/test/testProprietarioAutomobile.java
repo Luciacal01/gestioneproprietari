@@ -1,5 +1,6 @@
 package it.prova.gestioneproprietari.test;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
@@ -34,7 +35,8 @@ public class testProprietarioAutomobile {
 			// automobileService.listAllAutomobili().size() + " elementi");
 
 			// testModificaProprietario(proprietarioService);
-			testModificaAutomobile(proprietarioService, automobileService);
+			// testModificaAutomobile(proprietarioService, automobileService);
+			testRimuoviProprietario(proprietarioService);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		} finally {
@@ -104,6 +106,23 @@ public class testProprietarioAutomobile {
 			throw new RuntimeException("testModificaProprietario FAILED");
 
 		System.out.println("..........testModificaProprietario PASSED............");
+
+	}
+
+	public static void testRimuoviProprietario(ProprietarioService proprietarioService) throws Exception {
+		System.out.println(".........testRimuoviProprietario inizio............");
+
+		List<Proprietario> listProprietari = proprietarioService.listAllPropietari();
+		Date dataNascita = new SimpleDateFormat("dd-MM-yyyy").parse("31-10-1955");
+		Proprietario nuovoProprietario = new Proprietario("Lucia", "Calabria", "LCNCLB01T562SADFSW", dataNascita);
+
+		proprietarioService.inserisciNuovo(nuovoProprietario);
+
+		proprietarioService.rimuovi(nuovoProprietario.getId());
+		if (proprietarioService.caricaSingoloProprietario(nuovoProprietario.getId()) != null)
+			throw new RuntimeException("testRimozioneAbitante FAILED: record non cancellato");
+
+		System.out.println(".........testRimozioneProprietario PASSED");
 
 	}
 

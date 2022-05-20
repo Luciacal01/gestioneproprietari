@@ -97,9 +97,24 @@ public class ProprietarioServiceImpl implements ProprietarioService {
 	}
 
 	@Override
-	public void rimuovi(Long idAutomobileInstance) throws Exception {
-		// TODO Auto-generated method stub
+	public void rimuovi(Long idProprietarioInstance) throws Exception {
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
 
+		try {
+			entityManager.getTransaction().begin();
+
+			proprietarioDAO.setEntityManager(entityManager);
+
+			proprietarioDAO.delete(proprietarioDAO.get(idProprietarioInstance));
+
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override
