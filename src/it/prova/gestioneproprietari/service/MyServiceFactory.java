@@ -1,24 +1,29 @@
 package it.prova.gestioneproprietari.service;
 
+import it.prova.gestioneproprietari.dao.MyDaoFactory;
+import it.prova.gestioneproprietari.service.automobile.AutomobileService;
+import it.prova.gestioneproprietari.service.automobile.AutomobileServiceImpl;
+import it.prova.gestioneproprietari.service.proprietario.ProprietarioService;
+import it.prova.gestioneproprietari.service.proprietario.ProprietarioServiceImpl;
+
 public class MyServiceFactory {
-	/*
-	private static AbitanteService abitanteServiceInstance = null;
-	private static MunicipioService municipioServiceInstance = null;
 
-	public static AbitanteService getAbitanteServiceInstance() {
-		if (abitanteServiceInstance == null) {
-			abitanteServiceInstance = new AbitanteServiceImpl();
-			abitanteServiceInstance.setAbitanteDAO(MyDaoFactory.getAbitanteDAOInstance());
+	private static AutomobileService automobileServiceInstance = null;
+	private static ProprietarioService proprietarioServiceInstance = null;
+
+	public static AutomobileService getAutomobileServiceInstance() {
+		if (automobileServiceInstance == null) {
+			automobileServiceInstance = new AutomobileServiceImpl();
+			automobileServiceInstance.setAutomobileDAO(MyDaoFactory.getAutomobileDAOInstance());
 		}
-		return abitanteServiceInstance;
+		return automobileServiceInstance;
 	}
 
-	public static MunicipioService getMunicipioServiceInstance() {
-		if (municipioServiceInstance == null) {
-			municipioServiceInstance = new MunicipioServiceImpl();
-			municipioServiceInstance.setMunicipioDAO(MyDaoFactory.getMunicipioDAOInstance());
+	public static ProprietarioService getProprietarioServiceInstance() {
+		if (proprietarioServiceInstance == null) {
+			proprietarioServiceInstance = new ProprietarioServiceImpl();
+			proprietarioServiceInstance.setProprietarioDAO(MyDaoFactory.getProprietarioDAOInstance());
 		}
-		return municipioServiceInstance;
+		return proprietarioServiceInstance;
 	}
-	*/
 }

@@ -8,27 +8,39 @@ import it.prova.gestioneproprietari.model.Automobile;
 
 public class AutomobileDAOImpl implements AutomobileDAO {
 
+	private EntityManager entityManager;
+
+	public void setEntityManager(EntityManager entityManager) {
+		this.entityManager = entityManager;
+	}
+
 	@Override
 	public List<Automobile> list() throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return entityManager.createQuery("from Automobile", Automobile.class).getResultList();
 	}
 
 	@Override
 	public Automobile get(Long id) throws Exception {
-		// TODO Auto-generated method stub
-		return null;
+		return entityManager.find(Automobile.class, id);
 	}
 
 	@Override
-	public void update(Automobile o) throws Exception {
-		// TODO Auto-generated method stub
+	public void update(Automobile automobileInstance) throws Exception {
+		if (automobileInstance == null) {
+			throw new Exception("Problema valore input");
+		}
+
+		automobileInstance = entityManager.merge(automobileInstance);
 
 	}
 
 	@Override
-	public void insert(Automobile o) throws Exception {
-		// TODO Auto-generated method stub
+	public void insert(Automobile automobileInstance) throws Exception {
+		if (automobileInstance == null) {
+			throw new Exception("Problema valore input");
+		}
+
+		entityManager.persist(automobileInstance);
 
 	}
 
@@ -39,9 +51,15 @@ public class AutomobileDAOImpl implements AutomobileDAO {
 	}
 
 	@Override
-	public void setEntityManager(EntityManager entityManager) {
+	public List<Automobile> findAllByCodiceFiscaleContiene(String StringaDaVerificare) throws Exception {
 		// TODO Auto-generated method stub
+		return null;
+	}
 
+	@Override
+	public List<Automobile> findAllByAutomobiliConErrore() throws Exception {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
