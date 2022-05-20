@@ -36,7 +36,8 @@ public class testProprietarioAutomobile {
 
 			// testModificaProprietario(proprietarioService);
 			// testModificaAutomobile(proprietarioService, automobileService);
-			testRimuoviProprietario(proprietarioService);
+			// testRimuoviProprietario(proprietarioService);
+			testRimuoviAutomobile(proprietarioService, automobileService);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		} finally {
@@ -112,7 +113,6 @@ public class testProprietarioAutomobile {
 	public static void testRimuoviProprietario(ProprietarioService proprietarioService) throws Exception {
 		System.out.println(".........testRimuoviProprietario inizio............");
 
-		List<Proprietario> listProprietari = proprietarioService.listAllPropietari();
 		Date dataNascita = new SimpleDateFormat("dd-MM-yyyy").parse("31-10-1955");
 		Proprietario nuovoProprietario = new Proprietario("Lucia", "Calabria", "LCNCLB01T562SADFSW", dataNascita);
 
@@ -124,6 +124,26 @@ public class testProprietarioAutomobile {
 
 		System.out.println(".........testRimozioneProprietario PASSED");
 
+	}
+
+	public static void testRimuoviAutomobile(ProprietarioService proprietarioService,
+			AutomobileService automobileService) throws Exception {
+		System.out.println("..........testRimuoviAutomobile inizio.......");
+		List<Proprietario> listProprietari = proprietarioService.listAllPropietari();
+		if (listProprietari.isEmpty())
+			throw new RuntimeException("testRimuoviAuto Fallito: non ci sono proprietari");
+
+		Automobile automobile = new Automobile("citroen", "clio", "DD069HE", 1990);
+		automobile.setProprietario(listProprietari.get(3));
+		automobileService.inserisciNuova(automobile);
+
+		Long idAutomobileInserita = automobile.getId();
+		automobileService.rimuovi(idAutomobileInserita);
+
+		if (automobileService.caricaSingolaAutomobile(idAutomobileInserita) != null)
+			throw new RuntimeException("testRimozioneAutomobile FAILED");
+
+		System.out.println("...........testRimozioneAutomobile PASSED..........");
 	}
 
 }

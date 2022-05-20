@@ -92,8 +92,19 @@ public class AutomobileServiceImpl implements AutomobileService {
 
 	@Override
 	public void rimuovi(Long idAutomobileInstance) throws Exception {
-		// TODO Auto-generated method stub
-
+		EntityManager entityManager = EntityManagerUtil.getEntityManager();
+		try {
+			entityManager.getTransaction().begin();
+			automobileDAO.setEntityManager(entityManager);
+			automobileDAO.delete(automobileDAO.get(idAutomobileInstance));
+			entityManager.getTransaction().commit();
+		} catch (Exception e) {
+			entityManager.getTransaction().rollback();
+			e.printStackTrace();
+			throw e;
+		} finally {
+			EntityManagerUtil.closeEntityManager(entityManager);
+		}
 	}
 
 	@Override
