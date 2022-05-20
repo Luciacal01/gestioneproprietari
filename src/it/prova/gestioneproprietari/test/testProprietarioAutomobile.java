@@ -23,13 +23,17 @@ public class testProprietarioAutomobile {
 
 			System.out.println(
 					"in tabellaAutomobili ci sono " + automobileService.listAllAutomobili().size() + " elementi");
-			testInserisciNuocoProprietario(proprietarioService);
-			System.out.println(
-					"in tabella Proprietari ci sono " + proprietarioService.listAllPropietari().size() + " elementi");
+			// testInserisciNuocoProprietario(proprietarioService);
+			// System.out.println(
+			// "in tabella Proprietari ci sono " +
+			// proprietarioService.listAllPropietari().size() + " elementi");
 
-			testInserisciNuovaAuto(proprietarioService, automobileService);
-			System.out.println(
-					"in tabellaAutomobili ci sono " + automobileService.listAllAutomobili().size() + " elementi");
+			// testInserisciNuovaAuto(proprietarioService, automobileService);
+			// System.out.println(
+			// "in tabellaAutomobili ci sono " +
+			// automobileService.listAllAutomobili().size() + " elementi");
+
+			testModificaProprietario(proprietarioService);
 		} catch (Throwable e) {
 			e.printStackTrace();
 		} finally {
@@ -67,6 +71,21 @@ public class testProprietarioAutomobile {
 			throw new RuntimeException("testInserisciNuovaAuto fallito");
 
 		System.out.println("............testInserisciNuovoProprietario PASSED...........");
+	}
+
+	public static void testModificaProprietario(ProprietarioService proprietarioService) throws Exception {
+		System.out.println("..........testModificaProprietario inizio........");
+		Date dataNascita = new SimpleDateFormat("dd-MM-yyyy").parse("04-11-1956");
+		Proprietario proprietarioDaModificare = new Proprietario("Francesca", "verdi", "FRNVRD56T9145DGFHS",
+				dataNascita);
+		proprietarioDaModificare.setId(3L);
+
+		proprietarioService.aggiorna(proprietarioDaModificare);
+		if (proprietarioDaModificare.getId() == null)
+			throw new RuntimeException("testModificaProprietario FAILED");
+
+		System.out.println("..........testModificaProprietario PASSED............");
+
 	}
 
 }

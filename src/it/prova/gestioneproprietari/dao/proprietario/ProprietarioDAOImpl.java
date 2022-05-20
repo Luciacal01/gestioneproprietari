@@ -27,17 +27,21 @@ public class ProprietarioDAOImpl implements ProprietarioDAO {
 	}
 
 	@Override
-	public void update(Proprietario o) throws Exception {
-		// TODO Auto-generated method stub
+	public void update(Proprietario proprietarioInstance) throws Exception {
+		if(proprietarioInstance==null) {
+			throw new Exception("problema valore in input");
+		}
+		
+		proprietarioInstance=entityManager.merge(proprietarioInstance);
 
 	}
 
 	@Override
-	public void insert(Proprietario propprietarioInstance) throws Exception {
-		if (propprietarioInstance == null) {
+	public void insert(Proprietario proprietarioInstance) throws Exception {
+		if (proprietarioInstance == null) {
 			throw new Exception("problema valore in input");
 		}
-		entityManager.persist(propprietarioInstance);
+		entityManager.persist(proprietarioInstance);
 	}
 
 	@Override
